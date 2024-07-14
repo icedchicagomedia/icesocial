@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter-like Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Your existing CSS styles here */
+        /* Additional styles for forgot password */
+        .forgot-password {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .forgot-password input {
+            padding: 8px;
+            margin: 5px;
+        }
+        .forgot-password button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .forgot-password button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for create account button */
+        .create-account-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .create-account-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Style for full-screen create account form */
+        .fullscreen-create-account {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .create-account-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        /* Bottom navigation bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .profile-section img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        /* Additional styles for post area */
+        .post {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            position: relative; /* Ensure relative positioning for actions */
+        }
+
+        .post-actions {
+            position: absolute;
+            bottom: 10px;
+            left: 10px; /* Adjusted to bottom left */
+            display: flex;
+        }
+
+        .post-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 5px;
+        }
+
+        .post-actions button i {
+            font-size: 20px;
+        }
+
+        .post-content {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+
+        /* Reply section */
+        .reply-section {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .reply-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sign In Container -->
+        <div class="sign-in-container" id="sign-in-container">
+            <div class="sign-in-box">
+                <h2>Sign In</h2>
+                <input type="email" id="email-signin" placeholder="Email" required>
+                <input type="password" id="password-signin" placeholder="Password" required>
+                <button onclick="signIn()">Sign In</button>
+                <div class="forgot-password">
+                    <input type="email" id="forgot-email" placeholder="Enter your email">
+                    <button onclick="forgotPassword()">Forgot Password?</button>
+                </div>
+                <button class="create-account-btn" onclick="toggleFullScreenCreateAccount()">Create Account</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="main-content" style="display: none;">
+            <div class="post-form">
+                <textarea id="post-content" class="post-content" placeholder="What's on your mind?" disabled></textarea>
+                <button class="post-btn" onclick="post()" disabled>Post</button>
+            </div>
+            <div id="post-area" class="post-area">
+                <!-- Posts will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-screen create account form -->
+    <div class="fullscreen-create-account" id="fullscreen-create-account">
+        <div class="create-account-box">
+            <h2>Create Account</h2>
+            <input type="email" id="email-signup" placeholder="Email" required>
+            <input type="password" id="new-password" placeholder="Password" required>
+            <input type="text" id="new-username" placeholder="Username (no spaces)" required pattern="[^\s]+" title="Username must not contain spaces">
+            <button class="create-account-btn" onclick="createAccount()">Create Account</button>
+            <div class="toggle-sign-up" onclick="toggleFullScreenCreateAccount()">Back to Sign In</div>
+        </div>
+    </div>
+
+    <!-- Bottom navigation bar -->
+    <div class="bottom-nav" id="bottom-nav" style="display: none;">
+        <i class="fas fa-home" onclick="showMainContent()"></i>
+        <i class="fas fa-search"></i>
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user" onclick="showProfileSection()"></i>
+    </div>
+
+    <!-- Profile section -->
+    <div class="profile-section" id="profile-section">
+        <div class="profile-section-content">
+            <img src="default_profile.jpg" alt="Profile Picture">
+            <h3>Username: <span id="profile-username"></span></h3>
+            <p>Bio: <span id="profile-bio"></span></p>
+            <h4>Posts:</h4>
+            <div id="profile-posts"></div>
+            <button onclick="closeProfileSection()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Dummy user authentication (replace with actual implementation)
+        var currentUser = null;
+        var users = JSON.parse(localStorage.getItem('users')) || [
+            { username: 'user1', password: 'password1', email: 'user1@example.com', posts: [] },
+            { username: 'user2', password: 'password2', email: 'user2@example.com', posts: [] }
+        ];
+
+        function signIn() {
+            var email = document.getElementById('email-signin').value.trim();
+            var password = document.getElementById('password-signin').value.trim();
+
+            var user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                document.getElementById('sign-in-container').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('bottom-nav').style.display = 'flex';
+                enablePostForm(); // Enable posting functionality
+                displayPosts(); // Display existing posts
+            } else {
+                alert("Invalid email or password.");
+            }
+        }
+
+        function toggleFullScreenCreateAccount() {
+            var fullscreenCreateAccount = document.getElementById('fullscreen-create-account');
+            fullscreenCreateAccount.style.display = fullscreenCreateAccount.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function createAccount() {
+            var email = document.getElementById('email-signup').value.trim();
+            var newPassword = document.getElementById('new-password').value.trim();
+            var newUsername = document.getElementById('new-username').value.trim();
+
+            // Validate username (no spaces) - basic check
+            if (newUsername.includes(' ')) {
+                alert('Username must not contain spaces.');
+                return;
+            }
+
+            // Check if email already exists
+            if (users.some(u => u.email === email)) {
+                alert('Email already exists. Please use another email.');
+                return;
+            }
+
+            // Check if username already exists
+            if (users.some(u => u.username === newUsername)) {
+                alert('Username already exists. Please choose another.');
+                return;
+            }
+
+            // For demo, assume signup is successful and add user to the users array
+            var newUser = { username: newUsername, password: newPassword, email: email, posts: [] };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Clear signup form
+            document.getElementById('email-signup').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('new-username').value = '';
+
+            alert('Account created successfully!');
+            toggleFullScreenCreateAccount(); // Hide full-screen create account form
+            // Automatically sign in the user after account creation
+            document.getElementById('email-signin').value = email;
+            document.getElementById('password-signin').value = newPassword;
+            signIn();
+        }
+
+        function enablePostForm() {
+            document.getElementById('post-content').disabled = false;
+            document.querySelector('.post-btn').disabled = false;
+        }
+
+        function post() {
+            var content = document.getElementById('post-content').value.trim();
+            if (content === '') {
+                alert('Please enter something to post.');
+                return;
+            }
+
+            var post = {
+                username: currentUser.username,
+                content: content,
+                likes: 0,
+                reposts: 0,
+                replies: []
+            };
+
+            currentUser.posts.unshift(post); // Add post to user's posts
+            localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+            displayPosts(); // Refresh posts display
+            document.getElementById('post-content').value = ''; // Clear post input
+        }
+
+        function displayPosts() {
+            var postArea = document.getElementById('post-area');
+            postArea.innerHTML = '';
+
+            currentUser.posts.forEach(post => {
+                var postElement = document.createElement('div');
+                postElement.classList.add('post');
+                postElement.style.backgroundColor = 'white';
+                postElement.style.padding = '10px';
+                postElement.style.marginBottom = '10px';
+                postElement.style.borderRadius = '5px';
+
+                var usernameElement = document.createElement('div');
+                usernameElement.textContent = post.username;
+                usernameElement.style.fontWeight = 'bold';
+                postElement.appendChild(usernameElement);
+
+                var contentElement = document.createElement('div');
+                contentElement.textContent = post.content;
+                postElement.appendChild(contentElement);
+
+                var actionsElement = document.createElement('div');
+                actionsElement.classList.add('post-actions');
+
+                var likeButton = document.createElement('button');
+                likeButton.innerHTML = '<i class="fas fa-heart"></i>';
+                likeButton.classList.add('heart-icon');
+                if (post.likes > 0) {
+                    likeButton.style.color = 'red'; // Change color if already liked
+                }
+                likeButton.onclick = function () {
+                    likePost(post);
+                };
+                actionsElement.appendChild(likeButton);
+
+                var repostButton = document.createElement('button');
+                repostButton.innerHTML = '<i class="fas fa-retweet"></i>';
+                repostButton.classList.add('repost-btn');
+                repostButton.onclick = function () {
+                    repostPost(post);
+                };
+                actionsElement.appendChild(repostButton);
+
+                var replyButton = document.createElement('button');
+                replyButton.innerHTML = '<i class="fas fa-reply"></i>';
+                replyButton.classList.add('reply-btn', 'icon-only');
+                replyButton.onclick = function () {
+                    toggleReplySection(post);
+                };
+                actionsElement.appendChild(replyButton);
+
+                postElement.appendChild(actionsElement);
+
+                var replySection = document.createElement('div');
+                replySection.classList.add('reply-section');
+                replySection.id = 'reply-section-' + post.username + '-' + post.content;
+                replySection.innerHTML = `
+                    <textarea class="reply-content" placeholder="Write a reply"></textarea>
+                    <button class="reply-submit-btn" onclick="submitReply('${post.username}', '${post.content}')">Submit Reply</button>
+                `;
+                postElement.appendChild(replySection);
+
+                postArea.appendChild(postElement);
+            });
+        }
+
+        function likePost(post) {
+            post.likes = (post.likes + 1) % 2; // Toggle between 0 and 1
+            localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+            displayPosts(); // Refresh posts display after update
+        }
+
+        function repostPost(post) {
+            post.reposts++;
+            localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+            displayPosts(); // Refresh posts display after update
+        }
+
+        function toggleReplySection(post) {
+            var replySection = document.getElementById('reply-section-' + post.username + '-' + post.content);
+            replySection.classList.toggle('active');
+        }
+
+        function submitReply(username, content) {
+            var replyContent = document.querySelector('#reply-section-' + username + '-' + content + ' .reply-content').value.trim();
+            if (replyContent === '') {
+                alert('Please enter a reply.');
+                return;
+            }
+
+            var post = currentUser.posts.find(p => p.username === username && p.content === content);
+            post.replies.push({
+                username: currentUser.username,
+                content: replyContent
+            });
+
+            localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+            displayPosts(); // Refresh posts display after update
+        }
+
+        function forgotPassword() {
+            var email = document.getElementById('forgot-email').value.trim();
+            var user = users.find(u => u.email === email);
+
+            if (user) {
+                var temporaryPassword = generateTemporaryPassword();
+                // In a real application, this would send an email with the temporary password
+                // For demo, we just show it in an alert
+                alert('A temporary password has been sent to your email.');
+
+                // Update user's password (for demo purposes)
+                user.password = temporaryPassword;
+                localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+            } else {
+                alert('User with this email does not exist.');
+            }
+        }
+
+        function generateTemporaryPassword() {
+            // Generate a temporary password (for demo purposes)
+            // In a real application, this should be a securely generated password
+            return 'temporary123';
+        }
+
+        function showProfileSection() {
+            var profileSection = document.getElementById('profile-section');
+            profileSection.style.display = 'flex';
+
+            // Display user's profile information
+            var profileUsername = document.getElementById('profile-username');
+            profileUsername.textContent = currentUser.username;
+
+            var profileBio = document.getElementById('profile-bio');
+            profileBio.textContent = ''; // You can set the bio here
+
+            var profilePosts = document.getElementById('profile-posts');
+            profilePosts.innerHTML = ''; // Clear previous posts
+
+            // Display user's posts in the profile section
+            currentUser.posts.forEach(post => {
+                var postElement = document.createElement('div');
+                postElement.textContent = post.content;
+                profilePosts.appendChild(postElement);
+            });
+        }
+
+        function closeProfileSection() {
+            var profileSection = document.getElementById('profile-section');
+            profileSection.style.display = 'none';
+        }
+
+        function showMainContent() {
+            var mainContent = document.getElementById('main-content');
+            mainContent.style.display = 'block';
+
+            var profileSection = document.getElementById('profile-section');
+            profileSection.style.display = 'none';
+
+
+        }
+    </script>
+</body>
+</html>
+
+
+
