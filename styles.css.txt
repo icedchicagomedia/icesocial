@@ -1,0 +1,191 @@
+/* Your existing CSS styles here */
+
+/* Additional styles for forgot password */
+.forgot-password {
+    margin-top: 20px;
+    text-align: center;
+}
+.forgot-password input {
+    padding: 8px;
+    margin: 5px;
+}
+.forgot-password button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.forgot-password button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for create account button */
+.create-account-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
+}
+.create-account-btn:hover {
+    background-color: #218838;
+}
+
+/* Style for full-screen create account form */
+.fullscreen-create-account {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.create-account-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 80%;
+    text-align: center;
+}
+
+/* Bottom navigation bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.bottom-nav i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Profile section */
+.profile-section {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.profile-section-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-section img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+/* Additional styles for post area */
+.post {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: black; /* Set post text color to black */
+}
+
+.post-actions {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between; /* Ensure icons do not cover the text */
+}
+
+.post-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.post-actions button i {
+    font-size: 20px;
+}
+
+.post-actions .counter {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.post-actions .liked {
+    color: red;
+}
+
+.post-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+/* Reply section */
+.reply-section {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reply-section.active {
+    display: block;
+}
+
+/* Custom alert styles */
+.custom-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    text-align: center;
+}
+.custom-alert .close-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.custom-alert .close-btn:hover {
+    background-color: #0056b3;
+}
