@@ -1,1 +1,51 @@
-This side is under attack! Please come back later once this issue is fixed!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ice Social Alert</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, red, white, red);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        font-family: Arial Black
+        color: black; /* Changed text color to black for visibility */
+        text-shadow: 2px 2px 4px #000000; /* Added text shadow for better readability */
+    }
+    
+    @keyframes gradientBG {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    .alert-content {
+        text-align: center;
+    }
+
+    .ice-emoji {
+        font-size: 10em;
+        margin: 0;
+    }
+
+    .alert-text {
+        font-size: 2em;
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="alert-content">
+    <div class="ice-emoji">🧊</div>
+    <p class="alert-text">Ice Social is Under Attack!<br>We Will Be Back Once This Issue is Resolved!</p>
+</div>
+
+</body>
+</html>
