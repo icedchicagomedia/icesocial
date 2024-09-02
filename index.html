@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Ice Social Alert</title>
-<style>
-    body {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emoji Centered Website</title>
+    <style>
+      body {
         margin: 0;
-        padding: 0;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(45deg, red, white, red);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        font-family: Arial Black
-        color: black; /* Changed text color to black for visibility */
-        text-shadow: 2px 2px 4px #000000; /* Added text shadow for better readability */
-    }
-    
-    @keyframes gradientBG {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-
-    .alert-content {
+        background: linear-gradient(to bottom, #87ceeb, #ffffff);
+        font-family: Arial, sans-serif;
+        color: #333;
         text-align: center;
-    }
-
-    .ice-emoji {
-        font-size: 10em;
-        margin: 0;
-    }
-
-    .alert-text {
-        font-size: 2em;
-        margin: 0;
-    }
-</style>
-</head>
-<body>
-
-<div class="alert-content">
-    <div class="ice-emoji">🧊</div>
-    <p class="alert-text">Ice Social is Under Attack!<br>We Will Be Back Once This Issue is Resolved!</p>
-</div>
-
-</body>
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateY(-50px); /* Move content slightly upwards */
+      }
+      .emoji {
+        font-size: 150px; /* Larger emoji */
+        margin-bottom: -20px; /* Reduces the gap below the emoji */
+      }
+      .text {
+        font-size: 24px; /* Bigger text */
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 18px; /* Slightly bigger button text */
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="emoji">🧊</div>
+      <p class="text">
+        Ice Social is Updating! Follow Our Twitter or Bluesky to Stay Updated on
+        Our Progress!
+      </p>
+      <button onclick="window.location.href='https://x.com/IceSocialdotnet';">
+        Follow on Twitter
+      </button>
+      <button
+        onclick="window.location.href='https://bsky.app/profile/icesocial.bsky.social';"
+      >
+        Follow on Bluesky
+      </button>
+    </div>
+  </body>
 </html>
