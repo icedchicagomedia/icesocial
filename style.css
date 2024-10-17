@@ -1,0 +1,86 @@
+/* Add styles to align with the new login system */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1e1e1e;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #2d2d2d;
+  padding: 10px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  color: #00aced;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+textarea,
+input {
+  width: 90%;
+  height: 30px;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+button {
+  background-color: #00aced;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #008bbf;
+}
+
+.hidden {
+  display: none;
+}
+
+#posts {
+  margin-top: 20px;
+}
+
+.post {
+  background-color: #2d2d2d;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  position: relative;
+}
+
+.icons {
+  margin-top: 10px;
+}
+
+.icons button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.icons button:hover {
+  color: #00aced;
+}
