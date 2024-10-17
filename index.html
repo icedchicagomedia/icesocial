@@ -4,65 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ice Social</title>
-    <style>
-      body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to bottom, #87ceeb, #ffffff);
-        font-family: Arial, sans-serif;
-        color: #333;
-        text-align: center;
-      }
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: translateY(-50px); /* Move content slightly upwards */
-      }
-      .emoji {
-        font-size: 150px; /* Larger emoji */
-        margin-bottom: -20px; /* Reduces the gap below the emoji */
-        cursor: pointer; /* Change cursor to pointer on hover */
-      }
-      .text {
-        font-size: 24px; /* Bigger text */
-        margin-bottom: 10px;
-      }
-      button {
-        background-color: #333;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 18px; /* Slightly bigger button text */
-        cursor: pointer;
-        margin-top: 10px;
-        border-radius: 5px;
-      }
-      button:hover {
-        background-color: #555;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-        <div class="emoji">🧊</div>
-      </a>
-      <p class="text">
-        Ice Social is Updating! Follow Our Twitter or Bluesky to Stay Updated on
-        Our Progress!
-      </p>
-      <button onclick="window.location.href='https://x.com/IceSocialdotnet';">
-        Follow on Twitter
-      </button>
-      <button
-        onclick="window.location.href='https://bsky.app/profile/icesocial.bsky.social';"
-      >
-        Follow on Bluesky
-      </button>
-    </div>
+    <header>
+      <h1>Ice Social</h1>
+      <nav>
+        <ul>
+          <li><a href="#" id="home-link">Home</a></li>
+          <li><a href="#" id="profile-link">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Login Section -->
+    <section id="login-section">
+      <h2>Login / Sign Up</h2>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="login-button">Login / Sign Up</button>
+      <p id="login-error" style="color: red"></p>
+    </section>
+
+    <!-- Post Section -->
+    <section id="post-section" class="hidden">
+      <h2>Welcome, <span id="current-user"></span></h2>
+      <textarea id="new-post" placeholder="What's on your mind?"></textarea>
+      <button id="post-button">Post</button>
+      <div id="posts"></div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile-section" class="hidden">
+      <h2>Your Profile</h2>
+      <p>Username: <strong id="profile-username"></strong></p>
+      <p>Email: <strong id="profile-email"></strong></p>
+      <p>Posts: <span id="post-count">0</span></p>
+      <button id="go-home">Go Back to Home</button>
+    </section>
+
+    <script src="script.js"></script>
   </body>
 </html>
