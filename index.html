@@ -15,48 +15,38 @@
         }
         
         @keyframes gradient {
-            0% {
-                background-position: 0% 0%;
-            }
-            25% {
-                background-position: 100% 0%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            75% {
-                background-position: 0% 100%;
-            }
-            100% {
-                background-position: 0% 0%;
-            }
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
         }
 
         .emoji {
-            font-size: 100px;
+            font-size: 150px; /* Increased from 100px */
         }
 
         .text {
             color: black;
-            font-size: 24px;
+            font-size: 36px; /* Increased from 24px */
             font-family: Arial, sans-serif;
-            margin: 20px 0;
+            margin: 30px 0; /* Increased from 20px */
             text-align: center;
         }
 
         .button-container {
             display: flex;
-            gap: 20px;
+            gap: 30px; /* Increased from 20px */
         }
 
         .button {
             background-color: black;
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 15px 30px; /* Increased from 10px 20px */
+            border-radius: 35px; /* Increased from 25px */
             text-decoration: none;
             font-family: Arial, sans-serif;
-            font-size: 18px;
+            font-size: 27px; /* Increased from 18px */
             transition: transform 0.3s ease;
         }
 
@@ -67,15 +57,15 @@
 
         .lang-button {
             position: fixed;
-            right: 20px;
-            top: 20px;
+            right: 30px; /* Increased from 20px */
+            top: 30px; /* Increased from 20px */
             background-color: black;
             color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 15px 22px; /* Increased from 10px 15px */
+            border-radius: 35px; /* Increased from 25px */
             border: none;
             font-family: Arial, sans-serif;
-            font-size: 16px;
+            font-size: 24px; /* Increased from 16px */
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -87,15 +77,15 @@
 
         .menu-button {
             position: fixed;
-            left: 20px;
-            top: 20px;
+            left: 30px; /* Increased from 20px */
+            top: 30px; /* Increased from 20px */
             background-color: black;
             color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 15px 22px; /* Increased from 10px 15px */
+            border-radius: 35px; /* Increased from 25px */
             border: none;
             font-family: Arial, sans-serif;
-            font-size: 16px;
+            font-size: 24px; /* Increased from 16px */
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -107,14 +97,14 @@
 
         .menu {
             position: fixed;
-            left: 20px;
-            top: 60px;
+            left: 30px; /* Increased from 20px */
+            top: 90px; /* Increased from 60px */
             background-color: black;
             color: white;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 22px; /* Increased from 15px */
+            border-radius: 15px; /* Increased from 10px */
             font-family: Arial, sans-serif;
-            font-size: 16px;
+            font-size: 24px; /* Increased from 16px */
             display: none;
             transition: opacity 0.3s ease;
         }
@@ -141,7 +131,6 @@
         const englishText = "Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!";
         const spanishText = "¡La aplicación Ice Social está actualmente en desarrollo!<br>¡Sigue nuestro X o Bluesky para actualizaciones!";
 
-        // Set English as default explicitly
         document.getElementById("main-text").innerHTML = englishText;
 
         function toggleLanguage() {
