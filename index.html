@@ -22,7 +22,7 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* Default styles (Desktop - unchanged from your larger sizes) */
+        /* Default styles (Desktop) */
         .emoji {
             font-size: 150px;
         }
@@ -115,39 +115,64 @@
             opacity: 1;
         }
 
+        .lang-menu {
+            position: fixed;
+            right: 30px;
+            top: 90px;
+            background-color: black;
+            color: white;
+            padding: 22px;
+            border-radius: 15px;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-menu.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .lang-option {
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+        .lang-option:hover {
+            color: #ccc; /* Lighten text on hover */
+        }
+
         /* Mobile adjustments (max-width: 768px) */
         @media only screen and (max-width: 768px) {
             body {
-                height: auto; /* Allow body to expand with content */
-                padding: 20px; /* Add padding to fit content within screen */
+                height: auto;
+                padding: 20px;
             }
 
             .emoji {
-                font-size: 10vw; /* Scale with viewport width (10% of screen width) */
-                max-font-size: 75px; /* Cap to prevent it getting too large */
+                font-size: 10vw;
             }
 
             .text {
-                font-size: 5vw; /* Scale with viewport width */
+                font-size: 5vw;
                 margin: 15px 0;
-                padding: 0 10px; /* Prevent text from hitting edges */
-                max-font-size: 24px; /* Cap for readability */
+                padding: 0 10px;
             }
 
             .button-container {
-                flex-direction: column; /* Stack buttons vertically */
+                flex-direction: column;
                 gap: 15px;
-                width: 100%; /* Full width for mobile */
+                width: 100%;
                 align-items: center;
             }
 
             .button {
-                padding: 2vw 4vw; /* Scale padding with viewport */
+                padding: 2vw 4vw;
                 border-radius: 5vw;
-                font-size: 4vw; /* Scale font with viewport */
-                width: 80%; /* Fit button to screen width */
+                font-size: 4vw;
+                width: 80%;
                 text-align: center;
-                max-font-size: 18px; /* Cap for readability */
             }
 
             .lang-button {
@@ -156,7 +181,6 @@
                 padding: 1.5vw 3vw;
                 border-radius: 5vw;
                 font-size: 3.5vw;
-                max-font-size: 16px;
             }
 
             .menu-button {
@@ -165,17 +189,24 @@
                 padding: 1.5vw 3vw;
                 border-radius: 5vw;
                 font-size: 3.5vw;
-                max-font-size: 16px;
             }
 
             .menu {
                 left: 10px;
-                top: 15vw; /* Scale position with viewport */
+                top: 15vw;
                 padding: 3vw;
                 border-radius: 2vw;
                 font-size: 3.5vw;
-                max-font-size: 16px;
-                width: 80%; /* Fit menu to screen width */
+                width: 80%;
+            }
+
+            .lang-menu {
+                right: 10px;
+                top: 15vw;
+                padding: 3vw;
+                border-radius: 2vw;
+                font-size: 3.5vw;
+                width: 80%;
             }
         }
     </style>
@@ -187,29 +218,42 @@
         <a href="https://x.com/@icesocialdotnet" class="button">X</a>
         <a href="http://bsky.app/profile/icesocial.bsky.social" class="button">Bluesky</a>
     </div>
-    <button class="lang-button" onclick="toggleLanguage()">Español</button>
+    <button class="lang-button" onclick="toggleLangMenu()">Change Language</button>
     <button class="menu-button" onclick="toggleMenu()">Updates</button>
     <div class="menu" id="update-menu">No Current Updates</div>
+    <div class="lang-menu" id="lang-menu">
+        <div class="lang-option" onclick="changeLanguage('en')">English</div>
+        <div class="lang-option" onclick="changeLanguage('es')">Español</div>
+        <div class="lang-option" onclick="changeLanguage('fr')">Français</div>
+        <div class="lang-option" onclick="changeLanguage('de')">Deutsch</div>
+    </div>
 
     <script>
-        let isSpanish = false;
-        const englishText = "Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!";
-        const spanishText = "¡La aplicación Ice Social está actualmente en desarrollo!<br>¡Sigue nuestro X o Bluesky para actualizaciones!";
+        const translations = {
+            en: "Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!",
+            es: "¡La aplicación Ice Social está actualmente en desarrollo!<br>¡Sigue nuestro X o Bluesky para actualizaciones!",
+            fr: "L'application Ice Social est actuellement en développement !<br>Suivez notre X ou Bluesky pour des mises à jour !",
+            de: "Die Ice Social App wird derzeit entwickelt!<br>Folgen Sie unserem X oder Bluesky für Updates!"
+        };
 
-        document.getElementById("main-text").innerHTML = englishText;
+        // Set default language to English
+        document.getElementById("main-text").innerHTML = translations.en;
 
-        function toggleLanguage() {
-            const textElement = document.getElementById("main-text");
-            const button = document.querySelector(".lang-button");
-            if (isSpanish) {
-                textElement.innerHTML = englishText;
-                button.textContent = "Español";
-                isSpanish = false;
+        let isLangMenuVisible = false;
+        function toggleLangMenu() {
+            const langMenu = document.getElementById("lang-menu");
+            if (isLangMenuVisible) {
+                langMenu.classList.remove("visible");
             } else {
-                textElement.innerHTML = spanishText;
-                button.textContent = "English";
-                isSpanish = true;
+                langMenu.classList.add("visible");
             }
+            isLangMenuVisible = !isLangMenuVisible;
+        }
+
+        function changeLanguage(lang) {
+            const textElement = document.getElementById("main-text");
+            textElement.innerHTML = translations[lang];
+            toggleLangMenu(); // Hide menu after selection
         }
 
         let isMenuVisible = false;
