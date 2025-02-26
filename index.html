@@ -22,7 +22,7 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* Default styles (Desktop) */
+        /* Default styles (Desktop - unchanged from your larger sizes) */
         .emoji {
             font-size: 150px;
         }
@@ -115,51 +115,67 @@
             opacity: 1;
         }
 
-        /* Mobile styles (max-width: 768px is a common breakpoint for tablets and phones) */
+        /* Mobile adjustments (max-width: 768px) */
         @media only screen and (max-width: 768px) {
+            body {
+                height: auto; /* Allow body to expand with content */
+                padding: 20px; /* Add padding to fit content within screen */
+            }
+
             .emoji {
-                font-size: 75px; /* Reduced for mobile */
+                font-size: 10vw; /* Scale with viewport width (10% of screen width) */
+                max-font-size: 75px; /* Cap to prevent it getting too large */
             }
 
             .text {
-                font-size: 18px; /* Reduced for mobile */
+                font-size: 5vw; /* Scale with viewport width */
                 margin: 15px 0;
-                padding: 0 10px; /* Add padding to prevent text from hitting edges */
+                padding: 0 10px; /* Prevent text from hitting edges */
+                max-font-size: 24px; /* Cap for readability */
             }
 
             .button-container {
-                flex-direction: column; /* Stack buttons vertically on mobile */
+                flex-direction: column; /* Stack buttons vertically */
                 gap: 15px;
+                width: 100%; /* Full width for mobile */
+                align-items: center;
             }
 
             .button {
-                padding: 10px 20px;
-                border-radius: 25px;
-                font-size: 18px;
+                padding: 2vw 4vw; /* Scale padding with viewport */
+                border-radius: 5vw;
+                font-size: 4vw; /* Scale font with viewport */
+                width: 80%; /* Fit button to screen width */
+                text-align: center;
+                max-font-size: 18px; /* Cap for readability */
             }
 
             .lang-button {
-                right: 15px;
-                top: 15px;
-                padding: 10px 15px;
-                border-radius: 25px;
-                font-size: 16px;
+                right: 10px;
+                top: 10px;
+                padding: 1.5vw 3vw;
+                border-radius: 5vw;
+                font-size: 3.5vw;
+                max-font-size: 16px;
             }
 
             .menu-button {
-                left: 15px;
-                top: 15px;
-                padding: 10px 15px;
-                border-radius: 25px;
-                font-size: 16px;
+                left: 10px;
+                top: 10px;
+                padding: 1.5vw 3vw;
+                border-radius: 5vw;
+                font-size: 3.5vw;
+                max-font-size: 16px;
             }
 
             .menu {
-                left: 15px;
-                top: 60px;
-                padding: 15px;
-                border-radius: 10px;
-                font-size: 16px;
+                left: 10px;
+                top: 15vw; /* Scale position with viewport */
+                padding: 3vw;
+                border-radius: 2vw;
+                font-size: 3.5vw;
+                max-font-size: 16px;
+                width: 80%; /* Fit menu to screen width */
             }
         }
     </style>
