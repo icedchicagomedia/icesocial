@@ -127,6 +127,8 @@
             font-size: 24px;
             display: none;
             transition: opacity 0.3s ease;
+            max-height: 50vh; /* Limit height on desktop */
+            overflow-y: auto; /* Scroll if too many options */
         }
 
         .lang-menu.visible {
@@ -140,7 +142,7 @@
         }
 
         .lang-option:hover {
-            color: #ccc; /* Lighten text on hover */
+            color: #ccc;
         }
 
         /* Mobile adjustments (max-width: 768px) */
@@ -207,6 +209,8 @@
                 border-radius: 2vw;
                 font-size: 3.5vw;
                 width: 80%;
+                max-height: 60vh; /* Slightly larger on mobile */
+                overflow-y: auto;
             }
         }
     </style>
@@ -226,6 +230,14 @@
         <div class="lang-option" onclick="changeLanguage('es')">Español</div>
         <div class="lang-option" onclick="changeLanguage('fr')">Français</div>
         <div class="lang-option" onclick="changeLanguage('de')">Deutsch</div>
+        <div class="lang-option" onclick="changeLanguage('it')">Italiano</div>
+        <div class="lang-option" onclick="changeLanguage('pt')">Português</div>
+        <div class="lang-option" onclick="changeLanguage('ru')">Русский</div>
+        <div class="lang-option" onclick="changeLanguage('zh')">中文</div>
+        <div class="lang-option" onclick="changeLanguage('ja')">日本語</div>
+        <div class="lang-option" onclick="changeLanguage('ko')">한국어</div>
+        <div class="lang-option" onclick="changeLanguage('ar')">العربية</div>
+        <div class="lang-option" onclick="changeLanguage('hi')">हिन्दी</div>
     </div>
 
     <script>
@@ -233,7 +245,15 @@
             en: "Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!",
             es: "¡La aplicación Ice Social está actualmente en desarrollo!<br>¡Sigue nuestro X o Bluesky para actualizaciones!",
             fr: "L'application Ice Social est actuellement en développement !<br>Suivez notre X ou Bluesky pour des mises à jour !",
-            de: "Die Ice Social App wird derzeit entwickelt!<br>Folgen Sie unserem X oder Bluesky für Updates!"
+            de: "Die Ice Social App wird derzeit entwickelt!<br>Folgen Sie unserem X oder Bluesky für Updates!",
+            it: "L'app Ice Social è attualmente in sviluppo!<br>Segui il nostro X o Bluesky per aggiornamenti!",
+            pt: "O aplicativo Ice Social está atualmente em desenvolvimento!<br>Siga nosso X ou Bluesky para atualizações!",
+            ru: "Приложение Ice Social находится в разработке!<br>Следите за нашими X или Bluesky для обновлений!",
+            zh: "Ice Social 应用程序目前正在开发中！<br>关注我们的 X 或 Bluesky 以获取更新！",
+            ja: "Ice Social アプリは現在開発中です！<br>X または Bluesky をフォローして更新情報をご覧ください！",
+            ko: "Ice Social 앱은 현재 개발 중입니다!<br>X 또는 Bluesky를 팔로우하여 업데이트를 확인하세요!",
+            ar: "تطبيق Ice Social قيد التطوير حاليًا!<br>تابعنا على X أو Bluesky للحصول على التحديثات!",
+            hi: "आइस सोशल ऐप वर्तमान में विकास में है!<br>अपडेट के लिए हमारे X या Bluesky को फॉलो करें!"
         };
 
         // Set default language to English
@@ -252,7 +272,7 @@
 
         function changeLanguage(lang) {
             const textElement = document.getElementById("main-text");
-            textElement.innerHTML = translations[lang];
+            textElement.innerHTML = translations[lang] || translations.en; // Fallback to English if lang not found
             toggleLangMenu(); // Hide menu after selection
         }
 
