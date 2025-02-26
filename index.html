@@ -1,79 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ice Social Updating</title>
-    <link rel="icon" type="image/png" href="path/to/your/icecube.png" />
+<head>
     <style>
-      body {
-        background: linear-gradient(45deg, #0000a0, #00a0e3, #0000a0);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        color: #000000;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #add8e6, #4682b4, #00008b, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient 20s ease-in-out infinite;
         }
-        50% {
-          background-position: 100% 50%;
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            25% {
+                background-position: 100% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
         }
-        100% {
-          background-position: 0% 50%;
+
+        .emoji {
+            font-size: 100px;
         }
-      }
-      .emoji {
-        font-size: 150px;
-        margin-bottom: 20px;
-      }
-      h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-      .buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      button {
-        background-color: black;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 200px;
-      }
-      button:hover {
-        background-color: #444444;
-      }
+
+        .text {
+            color: black;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+
+        .lang-button {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background-color: black;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .lang-button:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .menu-button {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: black;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-button:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .menu {
+            position: fixed;
+            left: 20px;
+            top: 60px;
+            background-color: black;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu.visible {
+            display: block;
+            opacity: 1;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="emoji">🧊</div>
-    <h1>
-      Ice Social is Updating! Follow us on X or Bluesky For Updates on Our
-      Progress!
-    </h1>
-    <div class="buttons">
-      <button onclick="window.open('https://x.com/IceSocialdotnet', '_blank')">
-        X
-      </button>
-      <button
-        onclick="window.open('https://bsky.app/profile/icesocial.bsky.social', '_blank')"
-      >
-        Bluesky
-      </button>
+    <div class="text" id="main-text">Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!</div>
+    <div class="button-container">
+        <a href="https://x.com/@icesocialdotnet" class="button">X</a>
+        <a href="http://bsky.app/profile/icesocial.bsky.social" class="button">Bluesky</a>
     </div>
-  </body>
+    <button class="lang-button" onclick="toggleLanguage()">Español</button>
+    <button class="menu-button" onclick="toggleMenu()">Updates</button>
+    <div class="menu" id="update-menu">No Current Updates</div>
+
+    <script>
+        let isSpanish = false;
+        const englishText = "Ice Social App is Currently in Development!<br>Follow Our X or Bluesky For Updates!";
+        const spanishText = "¡La aplicación Ice Social está actualmente en desarrollo!<br>¡Sigue nuestro X o Bluesky para actualizaciones!";
+
+        // Set English as default explicitly
+        document.getElementById("main-text").innerHTML = englishText;
+
+        function toggleLanguage() {
+            const textElement = document.getElementById("main-text");
+            const button = document.querySelector(".lang-button");
+            if (isSpanish) {
+                textElement.innerHTML = englishText;
+                button.textContent = "Español";
+                isSpanish = false;
+            } else {
+                textElement.innerHTML = spanishText;
+                button.textContent = "English";
+                isSpanish = true;
+            }
+        }
+
+        let isMenuVisible = false;
+        function toggleMenu() {
+            const menu = document.getElementById("update-menu");
+            if (isMenuVisible) {
+                menu.classList.remove("visible");
+            } else {
+                menu.classList.add("visible");
+            }
+            isMenuVisible = !isMenuVisible;
+        }
+    </script>
+</body>
 </html>
