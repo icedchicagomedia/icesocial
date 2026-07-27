@@ -48,7 +48,7 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-padding:25px 8%;
+padding:20px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -60,21 +60,110 @@ z-index:100;
 font-size:28px;
 font-weight:900;
 color:#8fd8ff;
-margin-left: -12px;
 }
-nav a{
+/* Hamburger Button */
+.hamburger{
+width:46px;
+height:46px;
+background:rgba(255,255,255,.1);
+border:1px solid rgba(255,255,255,.2);
+border-radius:12px;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:6px;
+transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hamburger:hover{
+background:rgba(255,255,255,.2);
+border-color:#8fd8ff;
+transform: scale(1.05);
+box-shadow: 0 0 18px rgba(143, 216, 255, 0.35);
+}
+.hamburger span{
+display:block;
+width:22px;
+height:2.5px;
+background:white;
+border-radius:2px;
+transition:all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Hamburger → X animation */
+.hamburger.open span:nth-child(1){
+transform:translateY(8.5px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2){
+opacity:0;
+}
+.hamburger.open span:nth-child(3){
+transform:translateY(-8.5px) rotate(-45deg);
+}
+/* Overlay */
+.side-menu-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+opacity:0;
+visibility:hidden;
+transition:opacity .3s ease, visibility .3s ease;
+z-index:150;
+}
+.side-menu-overlay.visible{
+opacity:1;
+visibility:visible;
+}
+/* Side Menu */
+.side-menu{
+position:fixed;
+top:0;
+right:0;
+width:280px;
+max-width:85vw;
+height:100%;
+background:rgba(0,10,30,.95);
+backdrop-filter:blur(25px);
+padding:90px 28px 40px;
+transform:translateX(100%);
+transition:transform .35s cubic-bezier(0.4,0,0.2,1);
+z-index:200;
+display:flex;
+flex-direction:column;
+gap:8px;
+box-shadow:-10px 0 40px rgba(0,0,0,.4);
+}
+.side-menu.open{
+transform:translateX(0);
+}
+.side-menu a{
 color:white;
 text-decoration:none;
-margin-left:22px;
-opacity:.85;
-transition:.3s;
+font-size:20px;
+padding:14px 18px;
+border-radius:12px;
+opacity:.9;
+transition: background 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            color 0.35s ease,
+            transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.35s ease,
+            box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-nav a:hover{
+.side-menu a:hover{
+background:rgba(143,216,255,.22);
 color:#8fd8ff;
+transform: translateX(10px) scale(1.03);
+opacity:1;
+box-shadow: 0 6px 22px rgba(143, 216, 255, 0.18);
 }
-.x-icon{
-font-size:22px;
+.side-menu .x-link{
+margin-top:20px;
+font-size:24px;
 font-weight:bold;
+color:#8fd8ff;
 }
 section{
 min-height:100vh;
@@ -110,11 +199,14 @@ border-radius:30px;
 color:white;
 font-size:16px;
 cursor:pointer;
-transition:.3s;
+transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            background 0.35s ease;
 }
 button:hover{
-transform:translateY(-5px);
-box-shadow:0 0 35px #147dff;
+transform:translateY(-6px) scale(1.04);
+box-shadow:0 12px 40px rgba(20, 125, 255, 0.55);
+background:#1a8cff;
 }
 a{
 text-decoration:none;
@@ -131,12 +223,16 @@ border-radius:25px;
 background:rgba(255,255,255,.12);
 border:1px solid rgba(255,255,255,.25);
 backdrop-filter:blur(20px);
-transition:.4s;
+transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+            border-color 0.4s ease,
+            box-shadow 0.4s ease,
+            background 0.4s ease;
 }
 .card:hover{
-transform:translateY(-12px);
+transform:translateY(-14px);
 border-color:#8fd8ff;
-box-shadow:0 0 35px rgba(77,163,255,.4);
+box-shadow:0 0 40px rgba(77,163,255,.45);
+background:rgba(255,255,255,.16);
 }
 .card h3{
 color:#8fd8ff;
@@ -185,33 +281,37 @@ h1{
 font-size:45px;
 }
 nav{
-padding:20px;
+padding:18px 20px;
 }
-nav a{
-font-size:12px;
-margin-left:8px;
+.logo{
+font-size:24px;
+}
+.side-menu{
+width:260px;
 }
 }
 </style>
 </head>
 <body>
 <nav>
-<div class="logo">
-Glacier Apps
-</div>
-<div>
-<a href="#home">Home</a>
-<a href="#apps">Apps</a>
-<a href="#mission">Mission</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-<a class="x-icon"
-href="https://x.com/useglacierapps"
-target="_blank">
-𝕏
-</a>
-</div>
+<div class="logo">Glacier Apps</div>
+<button class="hamburger" id="hamburger" aria-label="Open menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
 </nav>
+<!-- Overlay -->
+<div class="side-menu-overlay" id="overlay"></div>
+<!-- Side Menu -->
+<div class="side-menu" id="side-menu">
+<a href="#home" onclick="closeMenu()">Home</a>
+<a href="#apps" onclick="closeMenu()">Apps</a>
+<a href="#mission" onclick="closeMenu()">Mission</a>
+<a href="#about" onclick="closeMenu()">About</a>
+<a href="#contact" onclick="closeMenu()">Contact</a>
+<a class="x-link" href="https://x.com/useglacierapps" target="_blank" onclick="closeMenu()">𝕏</a>
+</div>
 <section id="home">
 <div class="container reveal">
 <h1>
@@ -339,7 +439,7 @@ useglacierapps@gmail.com
 </p>
 <a href="https://x.com/useglacierapps" target="_blank">
 <button>
-Visit X
+Follow Us On X
 </button>
 </a>
 </div>
@@ -352,16 +452,40 @@ Visit X
 </a>
 </footer>
 <script>
+const hamburger = document.getElementById("hamburger");
+const sideMenu = document.getElementById("side-menu");
+const overlay = document.getElementById("overlay");
+function openMenu(){
+sideMenu.classList.add("open");
+overlay.classList.add("visible");
+hamburger.classList.add("open");
+}
+function closeMenu(){
+sideMenu.classList.remove("open");
+overlay.classList.remove("visible");
+hamburger.classList.remove("open");
+}
+hamburger.addEventListener("click", () => {
+if(sideMenu.classList.contains("open")){
+closeMenu();
+} else {
+openMenu();
+}
+});
+overlay.addEventListener("click", closeMenu);
+document.addEventListener("keydown", (e) => {
+if(e.key === "Escape") closeMenu();
+});
 function reveal(){
-let elements=document.querySelectorAll(".reveal");
-elements.forEach(element=>{
-let position=element.getBoundingClientRect().top;
+let elements = document.querySelectorAll(".reveal");
+elements.forEach(element => {
+let position = element.getBoundingClientRect().top;
 if(position < window.innerHeight - 100){
 element.classList.add("active");
 }
 });
 }
-window.addEventListener("scroll",reveal);
+window.addEventListener("scroll", reveal);
 reveal();
 </script>
 </body>
